@@ -1,0 +1,97 @@
+# ============================
+# 📦 BACKEND (Python / FastAPI)
+# ============================
+
+# Ambiente virtual
+venv/
+.env
+.env.local
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Cache e logs
+*.log
+*.sqlite3
+*.db
+*.bak
+*.tmp
+*.swp
+*.pid
+*.seed
+.DS_Store
+
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# Testes e cobertura
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+.pyre/
+
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ============================
+# 💻 FRONTEND (React / Vite)
+# ============================
+
+# Dependências
+node_modules/
+package-lock.json
+
+# Builds e arquivos temporários
+dist/
+build/
+*.log
+*.env
+.env.*
+coverage/
+*.tsbuildinfo
+
+# Configurações de sistema / editor
+.DS_Store
+Thumbs.db
+
+# ============================
+# 🐳 Docker e containerização
+# ============================
+
+# Imagens, volumes e artefatos temporários
+*.pid
+*.seed
+docker-compose.override.yml
+.env.docker
+*.tar
+
+# ============================
+# 🧪 Outros
+# ============================
+
+# Arquivos de backup temporários
+*~
+*.bak
+
+# Arquivos gerados automaticamente
+*.out
+*.err
+
+# Arquivos de lock temporários
+yarn-error.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ============================
+# ✅ Fim do .gitignore
+# ============================

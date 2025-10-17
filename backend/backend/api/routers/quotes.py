@@ -1,0 +1,16 @@
+from fastapi import APIRouter, HTTPException
+from backend.services.stock_provider import StockProvider
+from backend.schemas.stock import QuoteRequest, QuoteResponse
+
+router = APIRouter()
+provider = StockProvider()
+
+@router.post("/quote", response_model=QuoteResponse)
+async def get_quote(req: QuoteRequest):
+    try:
+        print(req.ticker)
+        data = provider.get_quote(req.ticker, days=30)
+        # print(data)
+        return data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
