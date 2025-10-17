@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from backend.services.stock_provider import StockProvider
-from backend.schemas.stock import QuoteRequest, QuoteResponse
+from services.stock_provider import StockProvider
+from schemas.stock import QuoteRequest, QuoteResponse
 
 router = APIRouter()
 provider = StockProvider()

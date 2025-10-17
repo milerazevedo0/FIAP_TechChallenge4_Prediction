@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from backend.api.routers import markets, quotes
+from api.routers import markets, quotes
 
 app = FastAPI(title="Stocks API")
 
@@ -19,6 +19,3 @@ app.include_router(quotes.router, prefix="/api", tags=["quotes"])
 
 # montar o build do react (após `npm run build` em frontend -> copia para backend/static)
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
-
-
-# Para iniciar a aplicação uvicorn backend.main:app --reload

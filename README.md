@@ -20,18 +20,17 @@ Este projeto é uma aplicação completa com **FastAPI** (backend) e **React** (
 FIAP_TechChallenge4_Prediction/
 │
 ├── backend/
-│   ├── backend/
-│   │   ├── api/
-│   │   │   └── routers/
-│   │   │       ├── markets.py
-│   │   │       └── quotes.py
-│   │   ├── schemas/
-│   │   │   └── stock.py
-│   │   ├── services/
-│   │   │   └── stock_provider.py
-│   │   ├── utils/
-│   │   │   └── date_utils.py
-│   │   └── main.py
+│   ├── api/
+│   │   └── routers/
+│   │       ├── markets.py
+│   │       └── quotes.py
+│   ├── schemas/
+│   │   └── stock.py
+│   ├── services/
+│   │   └── stock_provider.py
+│   ├── utils/
+│   │   └── date_utils.py
+│   └── main.py
 │   ├── pyproject.toml
 │   ├── static/
 │   └── tests/
@@ -79,7 +78,7 @@ poetry shell
 **Rodar o servidor FastAPI:**
 
 ```bash
-poetry run uvicorn app.main:app --reload
+poetry run uvicorn main:app --reload
 ```
 
 A API estará disponível em: `http://127.0.0.1:8000`  
