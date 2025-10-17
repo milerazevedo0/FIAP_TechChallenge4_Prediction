@@ -1,4 +1,4 @@
-# Stock Info App
+# Tech Challenge fase 4
 
 Este projeto é uma aplicação completa com **FastAPI** (backend) e **React** (frontend) que permite consultar informações sobre ações brasileiras e americanas.
 
@@ -129,11 +129,11 @@ O frontend será iniciado em: [http://localhost:5173](http://localhost:5173)
 
 ## 🧑‍💻 Autor
 
-**Miler Azevedo**  
+- **Miler Azevedo**  
 📧 [GitHub](https://github.com/milerazevedo0)
-**Arthur**
-**Murilo**
-**Kaio**
+- **Arthur**
+- **Murilo**
+- **Kaio**
 
 ---
 
