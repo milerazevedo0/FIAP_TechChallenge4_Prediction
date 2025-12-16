@@ -49,7 +49,6 @@ coverage.xml
 
 # Dependências
 node_modules/
-package-lock.json
 
 # Builds e arquivos temporários
 dist/
@@ -95,3 +94,6 @@ pnpm-debug.log*
 # ============================
 # ✅ Fim do .gitignore
 # ============================
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.github\instructions\snyk_rules.instructions.md
