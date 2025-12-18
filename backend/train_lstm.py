@@ -12,6 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import joblib
 from datetime import datetime  
+import logging
 
 var_input_size = 5
 var_hidden_size = 128
@@ -22,6 +23,25 @@ var_dropout = 0.2
 LOG_DIR = Path(__file__).resolve().parent / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 log_path = LOG_DIR / "training.log"
+
+logger = logging.getLogger("training_logger")
+logger.setLevel(logging.INFO)
+
+logger.propagate = False
+
+formatter = logging.Formatter("%(asctime)s | %(message)s")
+
+file_handler = logging.FileHandler(log_path, encoding="utf-8")
+file_handler.setFormatter(formatter)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+
+if not logger.handlers:
+    logger.addHandler(file_handler)
+    logger.addHandler(stream_handler)
+
+logger = logging.getLogger("training_logger")
 
 # ============================================================
 # MODELO LSTM — múltiplas features (Open, High, Low, Close, Volume)
@@ -40,7 +60,7 @@ class StockLSTM(nn.Module):
 # ============================================================
 # FUNÇÕES AUXILIARES
 # ============================================================
-def download_data(symbol, start="2015-01-01", end="2025-10-31"):
+def download_data(symbol, start="2015-01-01", end="2025-12-16"):
     """Baixa dados do Yahoo Finance e retorna DataFrame com as 5 colunas."""
     df = yf.download(symbol, start=start, end=end)
     if df is None or df.empty:
@@ -68,6 +88,20 @@ def create_sequences(data, look_back):
 # FUNÇÃO PRINCIPAL DE TREINO
 # ============================================================
 def train(symbol, start, end, look_back=60, epochs=50, batch_size=32, lr=0.001, model_dir=None):
+    
+    logger.info(
+    f"🚀 Iniciando treino: {symbol} | "
+    f"input_size={var_input_size}, "
+    f"hidden_size={var_hidden_size}, "
+    f"num_layers={var_num_layers}, "
+    f"output_size={var_output_size}, "
+    f"dropout={var_dropout}, "
+    f"look_back={look_back}, "
+    f"epochs={epochs}, "
+    f"batch_size={batch_size}, "
+    f"lr={lr}"
+    )
+    
     # 1️Baixar os dados
     df = download_data(symbol, start, end)
     values = df.values.astype("float32")  # shape (n_days, 5)
@@ -115,8 +149,8 @@ def train(symbol, start, end, look_back=60, epochs=50, batch_size=32, lr=0.001, 
     best_val = float("inf")
     best_state = None
 
-    with open(log_path, "a", encoding="utf-8") as log:
-        log.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 🚀 Iniciando treino: {symbol}\n")
+    # with open(log_path, "a", encoding="utf-8") as log:
+    #     log.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 🚀 Iniciando treino: {symbol}\n")
 
     # Treinamento
     print(f"[TRAIN] Treinando {symbol} com 5 features...")
@@ -179,8 +213,15 @@ def train(symbol, start, end, look_back=60, epochs=50, batch_size=32, lr=0.001, 
 
     # Adiciona log de finalização de treino
     
-    with open(log_path, "a", encoding="utf-8") as log:
-        log.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Treino finalizado: {symbol} | MAE={mae:.4f} | RMSE={rmse:.4f} | MAPE={mape:.2f}%\n")
+    # with open(log_path, "a", encoding="utf-8") as log:
+    #     log.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Treino finalizado: {symbol} | MAE={mae:.4f} | RMSE={rmse:.4f} | MAPE={mape:.2f}%\n")
+    
+    logger.info(
+    f"✅ Treino finalizado: {symbol} | "
+    f"MAE={mae:.4f} | "
+    f"RMSE={rmse:.4f} | "
+    f"MAPE={mape:.2f}%"
+    )
 
     # Salvar modelo e scaler
     if model_dir is None:
